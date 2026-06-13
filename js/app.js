@@ -1,38 +1,55 @@
+// js/app.js
 const contenedor = document.getElementById("resultados");
+const inputBusqueda = document.getElementById("busqueda");
 
-function render(lista){
+function generarSlug(text) {
+    return text
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[^a-z0-9 -]/g, "")
+        .replace(/\s+/g, "-")
+        .replace(/-+/g, "-");
+}
 
+function render(lista) {
     contenedor.innerHTML = "";
 
-    lista.forEach(item => {
+    if (lista.length === 0) {
+        contenedor.innerHTML = `<div class="no-results">❌ No hay convocatorias que coincidan con tu criterio de búsqueda.</div>`;
+        return;
+    }
 
-        const slug =
-            item.cuerpo.toLowerCase().replace(/ /g,"-")
-            + "-"
-            + item.provincia.toLowerCase().replace(/ /g,"-");
+    lista.forEach(item => {
+        const nombreArchivo = `${generarSlug(item.cuerpo)}-${generarSlug(item.provincia)}.html`;
 
         contenedor.innerHTML += `
             <div class="card">
+                <div class="card-badge">Actualizado 2026</div>
                 <h3>${item.cuerpo}</h3>
-                <p>${item.provincia}</p>
-                <a href="pages/${slug}.html">Ver requisitos</a>
+                <p class="provincia-tag">📍 Provincia: ${item.provincia}</p>
+                <a href="pages/${nombreArchivo}" class="card-link">Ver requisitos y sueldo →</a>
             </div>
         `;
     });
 }
 
-// mostrar todo al inicio
 render(datos);
 
-// buscador
-document.getElementById("busqueda").addEventListener("input", e => {
+inputBusqueda.addEventListener("input", e => {
+    const textoUsuario = e.target.value.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").trim();
 
-    const texto = e.target.value.toLowerCase();
+    if (!textoUsuario) {
+        render(datos);
+        return;
+    }
 
-    const filtrado = datos.filter(d =>
-        d.cuerpo.toLowerCase().includes(texto) ||
-        d.provincia.toLowerCase().includes(texto)
-    );
+    const terminos = textoUsuario.split(/\s+/);
+
+    const filtrado = datos.filter(item => {
+        const textoTarget = `${item.cuerpo} ${item.provincia}`.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        return terminos.every(termino => textoTarget.includes(termino));
+    });
 
     render(filtrado);
 });

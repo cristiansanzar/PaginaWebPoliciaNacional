@@ -1,32 +1,58 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{TITLE}}</title>
+    <meta name="description" content="{{DESCRIPTION}}">
+    <link rel="canonical" href="{{DOMINIO}}/pages/{{FILENAME}}">
+    <link rel="stylesheet" href="../css/style.css">
 
-<title>{{TITLE}}</title>
-
-<meta name="description" content="{{DESCRIPTION}}">
-<meta name="robots" content="index, follow">
-
-<link rel="stylesheet" href="../css/style.css">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "{{TITLE}}",
+      "description": "{{DESCRIPTION}}",
+      "inLanguage": "es",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Guía Oposiciones 2026"
+      }
+    }
+    </script>
 </head>
-
 <body>
+    <article class="container-page">
+        <header class="page-content-header">
+            <h1>Requisitos {{CUERPO}} en {{PROVINCIA}} 2026</h1>
+            <p class="intro-text">{{INTRO}}</p>
+        </header>
 
-<h1>{{CUERPO}} en {{PROVINCIA}}</h1>
+        <div class="ads-spacer">[Espacio Publicidad AdSense]</div>
 
-<p>{{INTRO}}</p>
+        <section>
+            <h2>Condiciones y Requisitos Generales</h2>
+            <p>{{REQUISITOS}}</p>
+        </section>
 
-<h2>Requisitos</h2>
-<p>{{REQUISITOS}}</p>
+        <section>
+            <h2>Sueldo de un {{CUERPO}}</h2>
+            <p>El salario base estimado para este cuerpo se sitúa en torno a los <strong>{{SUELDO}} brutos al mes</strong>, condicionado a complementos por nocturnidad, turnos y trienios.</p>
+        </section>
 
-<h2>Sueldo</h2>
-<p>{{SUELDO}}</p>
+        <div class="ads-spacer">[Espacio Publicidad AdSense]</div>
 
-<h2>Información extra</h2>
-<p>{{EXTRA}}</p>
+        <section>
+            <h2>Detalles de la Convocatoria en {{PROVINCIA}}</h2>
+            <p>{{EXTRA}}</p>
+        </section>
 
-<a href="../index.html">Volver al inicio</a>
+        {{ENLAZADO_INTERNO}}
 
+        <footer style="margin-top: 3rem; text-align: center;">
+            <a href="../inicio.html" class="btn-back">← Buscar otra Oposición o Provincia</a>
+        </footer>
+    </article>
 </body>
 </html>
